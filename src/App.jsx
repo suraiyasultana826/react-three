@@ -31,6 +31,18 @@ function App() {
     gui.add(teapotMesh.rotation, 'x', 0, Math.PI).name('Rotate X Axis');
     gui.add(teapotMesh.rotation, 'y', 0, Math.PI).name('Rotate Y Axis');
     gui.add(teapotMesh.rotation, 'z', 0, Math.PI).name('Rotate Z Axis');
+    gui.add(teapotMesh.scale, 'x', 0, 2).name('Scale X Axis');
+    gui.add(teapotMesh.scale, 'y', 0, 2).name('Scale Y Axis');
+    gui.add(teapotMesh.scale, 'z', 0, 2).name('Scale Z Axis');
+
+
+    const materialParams = {
+      teapotMeshColor: teapotMesh.material.color.getHex(),
+    };
+    gui.add(teapotMesh.material, 'wireframe');
+    gui
+    .addColor(materialParams, 'teapotMeshColor')
+    .onChange((value) => teapotMesh.material.color.set(value));
 
 
     //  const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32, 16);
@@ -39,7 +51,9 @@ function App() {
     // cylinderMesh.position.x = 1;
     // test.scene.add(cylinderMesh);
 
-
+    return () => {
+      gui.destroy();
+    };
 
   }, []);
 
